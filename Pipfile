@@ -9,6 +9,7 @@ flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 flask-cors = "*"
 flask-bcrypt = "*"
+jwt = "*"
 
 [dev-packages]
 
