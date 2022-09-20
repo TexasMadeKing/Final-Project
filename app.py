@@ -114,6 +114,28 @@ def delete_user(id):
 
     return user_schema.jsonify(user)
 
+# Create User Login
+@app.route("/user/login", methods=["POST"])
+def login():
+    post_data = request.get_json()
+    username = post_data.get("username")
+    password = post_data.get("password")
+    user = db.session.query(User).filter_by(username=username).first()
+
+    if user is None:
+        return jsonify({"message": "User does not exist!"})
+
+    if bcrypt.check_password_hash(user.password, password):
+        return jsonify({"message": "Login successful!"})
+
+    return jsonify({"message": "Invalid credentials!"})
+
+@app.route("/user/logout", methods=["POST"])
+def logout():
+    return jsonify({"message": "Logout successful!"})
+
+    
+
 # Create a Task
 @app.route("/task/add", methods=["POST"])
 def add_task():
